@@ -3,18 +3,13 @@ const slsw = require('serverless-webpack');
 const nodeExternals = require('webpack-node-externals');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
-/*
-This line is only required if you are specifying `TS_NODE_PROJECT` for whatever reason.
- */
-// delete process.env.TS_NODE_PROJECT;
-
 module.exports = {
   context: __dirname,
   mode: slsw.lib.webpack.isLocal ? 'development' : 'production',
   entry: slsw.lib.entries,
   devtool: slsw.lib.webpack.isLocal ? 'eval-cheap-module-source-map' : 'source-map',
   resolve: {
-    extensions: ['.mjs', '.json', '.ts'],
+    extensions: ['.mjs', '.json', '.ts', '.js'],
     symlinks: false,
     cacheWithContext: false,
     plugins: [
