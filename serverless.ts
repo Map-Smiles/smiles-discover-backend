@@ -1,6 +1,5 @@
-import type { AWS } from "@serverless/typescript";
-
 import smilesDiscover from "@functions/smiles-discover";
+import type { AWS } from "@serverless/typescript";
 
 const serverlessConfiguration: AWS = {
   service: "smiles-discover-backend",
