@@ -1,14 +1,10 @@
 import { Router } from "express";
 
+import { actionsController } from "@controllers";
+
 const actionsRouter = Router();
 
-actionsRouter.get("/", (request, response) => {
-  return response.status(200).json({ message: "List actions" });
-});
-actionsRouter.get("/:id", (request, response) => {
-  return response
-    .status(200)
-    .json({ message: `Show action id ${request.params.id}` });
-});
+actionsRouter.get("/", actionsController.listActions);
+actionsRouter.get("/:id", actionsController.showAction);
 
 export default actionsRouter;

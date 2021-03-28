@@ -90,9 +90,9 @@ const serverlessConfiguration: AWS = {
 
         { http: { method: "get", path: "/spots", cors: true } },
         { http: { method: "get", path: "/spots/{id}", cors: true } },
+        { http: { method: "get", path: "/spots/by-user", cors: true } },
 
-        { http: { method: "get", path: "/users", cors: true } },
-        { http: { method: "get", path: "/users/spots", cors: true } },
+        { http: { method: "get", path: "/users/{id}", cors: true } },
       ],
     },
   },

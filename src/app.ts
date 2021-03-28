@@ -22,6 +22,12 @@ app.use(cors());
 app.use(logging);
 app.use(express.json());
 
+// Static user id used in some requests
+app.use((req, res, next) => {
+  req.user = { id: "" };
+  next();
+});
+
 // Routers
 app.use("/actions", actionsRouter);
 app.use("/goals", goalsRouter);

@@ -1,14 +1,10 @@
 import { Router } from "express";
 
+import { spotsController } from "@controllers";
+
 const spotsRouter = Router();
 
-spotsRouter.get("/", (request, response) => {
-  return response.status(200).json({ message: "List spots" });
-});
-spotsRouter.get("/:id", (request, response) => {
-  return response
-    .status(200)
-    .json({ message: `Show spot id ${request.params.id}` });
-});
+spotsRouter.get("/", spotsController.listSpots);
+spotsRouter.get("/:id", spotsController.showSpot);
 
 export default spotsRouter;

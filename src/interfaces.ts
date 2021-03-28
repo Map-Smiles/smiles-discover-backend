@@ -24,3 +24,9 @@ export type middleware<T = any, R = any> = (
   res: Response<R>,
   next: NextFunction
 ) => void;
+
+export type Empty = Record<string, never>;
+
+export type middlewareFn<T = any> = (params?: T) => middleware;
+
+export type RequestHandler<T = any, R = any> = middleware<T, R>;
