@@ -4,8 +4,8 @@ import { APIGatewayProxyEvent, Context } from "aws-lambda";
 import serverless from "serverless-http";
 
 import * as factory from "@factories";
+import { getSecretValue, lambdaUnexpectedError } from "@helpers";
 import container from "@helpers/container";
-import { getSecretValue } from "@helpers/secretsManager";
 import { LambdaResponse } from "@interfaces";
 
 import app from "./app";
@@ -28,11 +28,6 @@ export default async (
     if (!container.db || !container.db?.isConnected) await bootstrap();
     return serverless(app)(event, context);
   } catch (err) {
-    console.log(err);
-
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: "Internal server error" }),
-    };
+    return lambdaUnexpectedError(err);
   }
 };
