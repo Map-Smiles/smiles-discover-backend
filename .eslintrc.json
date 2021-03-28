@@ -27,6 +27,8 @@
     "no-empty-function": "off",
     "no-template-curly-in-string": "off",
     "no-underscore-dangle": "off",
+    "no-restricted-syntax": "off",
+    "no-await-in-loop": "off",
     "consistent-return": "off",
     "lines-between-class-members": "off",
     "import/extensions": [

@@ -5,7 +5,7 @@ import { spotsController } from "@controllers";
 const spotsRouter = Router();
 
 spotsRouter.get("/", spotsController.listSpots);
-spotsRouter.get("/:id", spotsController.showSpot);
 spotsRouter.get("/by-user", spotsController.listSpotsByUser);
+spotsRouter.get("/:id", spotsController.showSpot);
 
 export default spotsRouter;

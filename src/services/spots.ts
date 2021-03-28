@@ -25,14 +25,16 @@ async function normalizeSpot(spot: Spot): Promise<INormalizedSpot> {
     id_spot: String(spot._id),
   });
 
-  const isAvailable = false;
+  const interactionDate = interaction ? interaction.created_at : null;
+
+  const isAvailable = !interaction;
 
   return {
     ...spot,
     type,
     actions,
     isAvailable,
-    interactionDate: interaction.created_at,
+    interactionDate,
   };
 }
 
@@ -40,12 +42,14 @@ export async function listSpots(): Promise<INormalizedSpot[]> {
   console.info(`🔧 Getting list of Spots`);
   const spots = await container.db.spots.find();
 
+  console.log(spots);
+
   const normalizedSpots: INormalizedSpot[] = [];
 
-  spots.map(async (spot) => {
+  for (const spot of spots) {
     const normalizedSpot = await normalizeSpot(spot);
     normalizedSpots.push(normalizedSpot);
-  });
+  }
 
   return normalizedSpots;
 }

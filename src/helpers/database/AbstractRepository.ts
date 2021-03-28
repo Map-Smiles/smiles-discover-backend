@@ -35,8 +35,6 @@ export class AbstractRepository<T> {
   async findByIdOrFail(id: ObjectId | string): Promise<T> {
     const result = await this.findById(id);
 
-    console.log(result);
-
     if (!result) {
       throw new Error(
         `Can not find document with id ${id} in the collection ${this.collection.collectionName}`
