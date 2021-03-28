@@ -1,3 +1,4 @@
+export * from "./account";
 export * from "./action";
 export * from "./goal";
 export * from "./interaction";

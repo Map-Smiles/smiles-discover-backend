@@ -1,5 +1,6 @@
 import { MongoClient, Db, ClientSession } from "mongodb";
 
+import { AccountRepository } from "./AccountRepository";
 import { ActionRepository } from "./ActionRepository";
 import { GoalRepository } from "./GoalRepository";
 import { InteractionRepository } from "./InteractionRepository";
@@ -13,6 +14,7 @@ export class Database {
   private client: MongoClient;
   private db: Db;
 
+  private accountsRepository: AccountRepository;
   private actionsRepository: ActionRepository;
   private goalsRepository: GoalRepository;
   private interactionsRepository: InteractionRepository;
@@ -32,6 +34,7 @@ export class Database {
     await this.client.connect();
     this.db = this.client.db("smiles_discover");
 
+    this.accountsRepository = new AccountRepository(this.db);
     this.actionsRepository = new ActionRepository(this.db);
     this.goalsRepository = new GoalRepository(this.db);
     this.interactionsRepository = new InteractionRepository(this.db);
@@ -54,6 +57,10 @@ export class Database {
 
   get isConnected(): boolean {
     return this.client?.isConnected();
+  }
+
+  get accounts(): AccountRepository {
+    return this.accountsRepository;
   }
 
   get actions(): ActionRepository {

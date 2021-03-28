@@ -26,6 +26,7 @@ export class AbstractRepository<T> {
 
   findById(id: ObjectId | string): Promise<T> {
     const _id = typeof id === "string" ? new ObjectId(id) : id;
+
     return this.collection.findOne({
       _id,
     } as any);
@@ -34,9 +35,11 @@ export class AbstractRepository<T> {
   async findByIdOrFail(id: ObjectId | string): Promise<T> {
     const result = await this.findById(id);
 
+    console.log(result);
+
     if (!result) {
       throw new Error(
-        `cannot find document with id ${id} in the collection ${this.collection.collectionName}`
+        `Can not find document with id ${id} in the collection ${this.collection.collectionName}`
       );
     }
 

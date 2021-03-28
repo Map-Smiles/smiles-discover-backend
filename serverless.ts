@@ -70,6 +70,8 @@ const serverlessConfiguration: AWS = {
       events: [
         { http: { method: "get", path: "/health-check", cors: true } },
 
+        { http: { method: "get", path: "/accounts/{id}", cors: true } },
+
         { http: { method: "get", path: "/actions", cors: true } },
         { http: { method: "get", path: "/actions/{id}", cors: true } },
 

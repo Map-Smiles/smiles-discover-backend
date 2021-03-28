@@ -15,7 +15,10 @@
       "@middlewares/*": ["src/middlewares/*"],
 
       "@routes": ["./src/routes"],
-      "@src": ["./src"]
+      "@src": ["./src"],
+
+      "@services": ["src/services/index"],
+      "@services/*": ["src/services/*"],
     }
   }
 }

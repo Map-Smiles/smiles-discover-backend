@@ -1,6 +1,7 @@
 import { ValidationError } from "yup";
 
 import { apiErrors } from "@helpers";
+import * as services from "@services";
 
 import {
   ListPocketsHandler,
@@ -8,39 +9,60 @@ import {
   UpdatePocketHandler,
   CreatePocketHandler,
 } from "./interfaces";
-import { createPocketSchema } from "./validations";
+import { createPocketSchema, updatePocketSchema } from "./validations";
 
-export const listPockets: ListPocketsHandler = (req, res, next) => {
-  const idUser = req.user.id;
-
-  return res.status(200).json([]);
+export const listPockets: ListPocketsHandler = async (req, res, next) => {
+  try {
+    const pockets = await services.listPockets();
+    return res.status(200).json(pockets);
+  } catch (err) {
+    next(err);
+  }
 };
 
-export const showPocket: ShowPocketHandler = (req, res, next) => {
+export const showPocket: ShowPocketHandler = async (req, res, next) => {
   const { id } = req.params;
 
-  return res.status(200).json();
+  try {
+    const pockets = await services.getPocket(id);
+    return res.status(200).json(pockets);
+  } catch (err) {
+    next(err);
+  }
 };
 
-export const updatePocket: UpdatePocketHandler = (req, res, next) => {
-  const { id } = req.params;
+export const updatePocket: UpdatePocketHandler = async (req, res, next) => {
+  // const { id } = req.params;
 
-  return res.status(200).json();
+  // try {
+  //   const body = updatePocketSchema.validateSync(req.body, {
+  //     stripUnknown: true,
+  //   });
+
+  //   await services.updatePocket(id, body);
+
+  //   return res.status(200);
+  // } catch (err) {
+  //   if (err instanceof ValidationError) {
+  //     return next(apiErrors.badRequest(err.errors.join(", ")));
+  //   }
+
+  //   next(err);
+  // }
+  return res.status(200);
 };
 
-export const createPocket: CreatePocketHandler = (req, res, next) => {
+export const createPocket: CreatePocketHandler = async (req, res, next) => {
   try {
     const body = createPocketSchema.validateSync(req.body, {
       stripUnknown: true,
     });
 
-    const pocket = {
-      _id: "12345",
+    const pocket = await services.createPocket({
       id_user: req.user.id,
-      id_goal: body.id_goal,
       balance: 0,
-      thumbnail: body.thumbnail_url,
-    };
+      ...body,
+    });
 
     return res.status(200).json(pocket);
   } catch (err) {

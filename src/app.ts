@@ -4,6 +4,7 @@ import helmet from "helmet";
 
 import { errorHandler, logging } from "@middlewares";
 import {
+  accountsRouter,
   actionsRouter,
   goalsRouter,
   healthCheckRouter,
@@ -24,11 +25,12 @@ app.use(express.json());
 
 // Static user id used in some requests
 app.use((req, res, next) => {
-  req.user = { id: "" };
+  req.user = { id: "6060e7e07baca7ea59defe4d" };
   next();
 });
 
 // Routers
+app.use("/accounts", accountsRouter);
 app.use("/actions", actionsRouter);
 app.use("/goals", goalsRouter);
 app.use("/health-check", healthCheckRouter);

@@ -1,21 +1,40 @@
+import * as services from "@services";
+
 import {
+  ListSpotsByUserHandler,
   ListSpotsHandler,
   ShowSpotHandler,
-  ListSpotsByUserHandler,
 } from "./interfaces";
 
-export const listSpots: ListSpotsHandler = (req, res, next) => {
-  return res.status(200).json([]);
+export const listSpots: ListSpotsHandler = async (req, res, next) => {
+  try {
+    const spots = await services.listSpots();
+    return res.status(200).json(spots);
+  } catch (err) {
+    next(err);
+  }
 };
 
-export const showSpot: ShowSpotHandler = (req, res, next) => {
+export const showSpot: ShowSpotHandler = async (req, res, next) => {
   const { id } = req.params;
 
-  return res.status(200).json();
+  try {
+    const spots = await services.getSpot(id);
+    return res.status(200).json(spots);
+  } catch (err) {
+    next(err);
+  }
 };
 
-export const listSpotsByUser: ListSpotsByUserHandler = (req, res, next) => {
-  const idUser = req.user.id;
-
-  return res.status(200).json([]);
+export const listSpotsByUser: ListSpotsByUserHandler = async (
+  req,
+  res,
+  next
+) => {
+  try {
+    const spots = await services.listSpotsByUser(req.user.id);
+    return res.status(200).json(spots);
+  } catch (err) {
+    next(err);
+  }
 };

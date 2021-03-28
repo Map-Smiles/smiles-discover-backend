@@ -1,7 +1,14 @@
+import * as services from "@services";
+
 import { ShowUserHandler } from "./interfaces";
 
-export const showUser: ShowUserHandler = (req, res, next) => {
-  const idUser = req.user.id;
+export const showUser: ShowUserHandler = async (req, res, next) => {
+  const { id } = req.params;
 
-  return res.status(200).json();
+  try {
+    const users = await services.getUser(id);
+    return res.status(200).json(users);
+  } catch (err) {
+    next(err);
+  }
 };

@@ -1,17 +1,17 @@
 import { Db, ObjectId, UpdateQuery } from "mongodb";
 
-import { Spot } from "@entities";
+import { Account } from "@entities";
 
 import { AbstractRepository } from "./AbstractRepository";
 
-export class SpotRepository extends AbstractRepository<Spot> {
+export class AccountRepository extends AbstractRepository<Account> {
   constructor(db: Db) {
-    super(db, "spots");
+    super(db, "accounts");
   }
 
-  async updateSpotById(
+  async updateAccountById(
     id: ObjectId | string,
-    update: UpdateQuery<Spot> | Partial<Spot>
+    update: UpdateQuery<Account> | Partial<Account>
   ) {
     const result = await this.findByIdOrFail(id);
 
