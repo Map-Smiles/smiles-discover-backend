@@ -19,17 +19,6 @@
   "rules": {
     "camelcase": "off",
     "import/no-unresolved": "error",
-    "@typescript-eslint/naming-convention": [
-      "error",
-      {
-        "selector": "interface",
-        "format": ["PascalCase"],
-        "custom": {
-          "regex": "^I[A-Z]",
-          "match": true
-        }
-      }
-    ],
     "class-methods-use-this": "off",
     "import/prefer-default-export": "off",
     "no-shadow": "off",
@@ -37,6 +26,7 @@
     "no-useless-constructor": "off",
     "no-empty-function": "off",
     "no-template-curly-in-string": "off",
+    "no-underscore-dangle": "off",
     "lines-between-class-members": "off",
     "import/extensions": [
       "error",

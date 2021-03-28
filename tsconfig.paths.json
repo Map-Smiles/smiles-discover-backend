@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@entities": ["./src/entities"],
       "@factories": ["./src/factories"],
 
       "@helpers": ["./src/helpers/index"],
