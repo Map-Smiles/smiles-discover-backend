@@ -2,6 +2,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@factories": ["./src/factories"],
+      "@helpers": ["./src/helpers/index"],
+      "@helpers/*": ["./src/helpers/*"],
+      "@interfaces": ["./src/interfaces.ts"],
       "@src": ["./src"]
     }
   }

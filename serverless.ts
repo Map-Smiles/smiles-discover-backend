@@ -7,9 +7,19 @@ const serverlessConfiguration: AWS = {
 
   custom: {
     stage: "${opt:stage, 'dev'}",
+
     webpack: {
       webpackConfig: "./webpack.config.js",
       includeModules: true,
+    },
+
+    secrets: {
+      dev:
+        "arn:aws:secretsmanager:us-east-1:*:secret:DEV_SmilesDiscover-DkX6z4",
+      stg:
+        "arn:aws:secretsmanager:us-east-1:*:secret:PRD_SmilesDiscover-abt84W",
+      prod:
+        "arn:aws:secretsmanager:us-east-1:*:secret:PRD_SmilesDiscover-abt84W",
     },
   },
 
@@ -44,6 +54,14 @@ const serverlessConfiguration: AWS = {
       STAGE: "${self:custom.stage}",
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: "1",
     },
+
+    iamRoleStatements: [
+      {
+        Effect: "Allow",
+        Action: "secretsmanager:GetSecretValue",
+        Resource: "${self:custom.secrets.${self:custom.stage}}",
+      },
+    ],
   },
 
   functions: {
