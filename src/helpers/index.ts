@@ -1,3 +1,3 @@
 export * from "./database";
 export * from "./errors";
-export * from "./secretsManager";
+export * from "./secrets-manager";
