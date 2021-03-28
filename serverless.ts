@@ -68,9 +68,31 @@ const serverlessConfiguration: AWS = {
     default: {
       handler: "src/handler.default",
       events: [
-        {
-          http: { method: "get", path: "/health-check", cors: true },
-        },
+        { http: { method: "get", path: "/health-check", cors: true } },
+
+        { http: { method: "get", path: "/actions", cors: true } },
+        { http: { method: "get", path: "/actions/{id}", cors: true } },
+
+        { http: { method: "get", path: "/goals", cors: true } },
+        { http: { method: "get", path: "/goals/{id}", cors: true } },
+        { http: { method: "put", path: "/goals/{id}", cors: true } },
+        { http: { method: "post", path: "/goals", cors: true } },
+
+        { http: { method: "get", path: "/interactions", cors: true } },
+        { http: { method: "get", path: "/interactions/{id}", cors: true } },
+        { http: { method: "put", path: "/interactions/{id}", cors: true } },
+        { http: { method: "post", path: "/interactions", cors: true } },
+
+        { http: { method: "get", path: "/pockets", cors: true } },
+        { http: { method: "get", path: "/pockets/{id}", cors: true } },
+        { http: { method: "put", path: "/pockets/{id}", cors: true } },
+        { http: { method: "post", path: "/pockets", cors: true } },
+
+        { http: { method: "get", path: "/spots", cors: true } },
+        { http: { method: "get", path: "/spots/{id}", cors: true } },
+
+        { http: { method: "get", path: "/users", cors: true } },
+        { http: { method: "get", path: "/users/spots", cors: true } },
       ],
     },
   },

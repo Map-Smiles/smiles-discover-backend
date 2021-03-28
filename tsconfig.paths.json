@@ -3,9 +3,16 @@
     "baseUrl": ".",
     "paths": {
       "@factories": ["./src/factories"],
+
       "@helpers": ["./src/helpers/index"],
       "@helpers/*": ["./src/helpers/*"],
+
       "@interfaces": ["./src/interfaces.ts"],
+
+      "@middlewares": ["src/middlewares/index"],
+      "@middlewares/*": ["src/middlewares/*"],
+
+      "@routes": ["./src/routes"],
       "@src": ["./src"]
     }
   }
