@@ -1,4 +1,4 @@
-import { Db, ObjectId, UpdateQuery } from "mongodb";
+import { Db, ObjectId, UpdateOneOptions, UpdateQuery } from "mongodb";
 
 import { Account } from "@entities";
 
@@ -11,7 +11,8 @@ export class AccountRepository extends AbstractRepository<Account> {
 
   async updateAccountById(
     id: ObjectId | string,
-    update: UpdateQuery<Account> | Partial<Account>
+    update: UpdateQuery<Account> | Partial<Account>,
+    options?: UpdateOneOptions
   ) {
     const result = await this.findByIdOrFail(id);
 
@@ -19,6 +20,6 @@ export class AccountRepository extends AbstractRepository<Account> {
       _id: result._id,
     };
 
-    return this.collection.updateOne(filter, update);
+    return this.collection.updateOne(filter, update, options);
   }
 }

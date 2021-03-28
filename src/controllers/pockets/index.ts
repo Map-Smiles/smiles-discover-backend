@@ -32,23 +32,23 @@ export const showPocket: ShowPocketHandler = async (req, res, next) => {
 };
 
 export const updatePocket: UpdatePocketHandler = async (req, res, next) => {
-  // const { id } = req.params;
+  const { id } = req.params;
 
-  // try {
-  //   const body = updatePocketSchema.validateSync(req.body, {
-  //     stripUnknown: true,
-  //   });
+  try {
+    const body = updatePocketSchema.validateSync(req.body, {
+      stripUnknown: true,
+    });
 
-  //   await services.updatePocket(id, body);
+    await services.updatePocket(id, body, req.user.id);
 
-  //   return res.status(200);
-  // } catch (err) {
-  //   if (err instanceof ValidationError) {
-  //     return next(apiErrors.badRequest(err.errors.join(", ")));
-  //   }
+    return res.status(200);
+  } catch (err) {
+    if (err instanceof ValidationError) {
+      return next(apiErrors.badRequest(err.errors.join(", ")));
+    }
 
-  //   next(err);
-  // }
+    next(err);
+  }
   return res.status(200);
 };
 

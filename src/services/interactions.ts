@@ -30,5 +30,38 @@ export async function updateInteraction(
 export async function createInteraction(
   fields: Omit<Interaction, "_id">
 ): Promise<Interaction> {
-  return container.db.interactions.insertOne(fields);
+  const { id_action, id_user, id_spot } = fields;
+
+  const { points } = await container.db.actions.findByIdOrFail(id_action);
+  const account = await container.db.accounts.findOne({ id_user });
+
+  const session = container.db.startSession();
+
+  let interaction: Interaction;
+
+  await session.withTransaction(async () => {
+    console.info(
+      `🔧 Creating new interaction for action ${id_action} and user ${id_user} on spot ${id_spot}`
+    );
+    interaction = await container.db.interactions.insertOne(fields, {
+      session,
+    });
+
+    console.info(`🔧 Adding ${points} points to user ${id_user} accounst`);
+
+    let { balance } = account;
+    balance += points;
+
+    await container.db.accounts.updateAccountById(
+      account._id,
+      {
+        $set: { balance },
+      },
+      { session }
+    );
+  });
+
+  session.endSession();
+
+  return interaction;
 }

@@ -24,22 +24,45 @@ export async function getPocket(id: string): Promise<Pocket> {
   return interaction;
 }
 
-// export async function updatePocket(id: string, fields: IPocketUpdate) {
-//   const { update_amount } = fields;
+export async function updatePocket(
+  id: string,
+  fields: IPocketUpdate,
+  id_user: string
+) {
+  const { update_amount } = fields;
 
-//   if (update_amount) {
-//     const session = container.db.startSession();
+  if (update_amount) {
+    const session = container.db.startSession();
 
-//     try {
-//       await session.withTransaction(async () => {
-//         console.info(`🔧 Updating amount ${update_amount} from user account`);
-//         await container.db
-//       });
-//     } catch (err) {}
-//   }
+    await session.withTransaction(async () => {
+      console.info(
+        `🔧 Removing amount ${update_amount} from user account balance`
+      );
 
-//   return container.db.pockets.updatePocketById(id, { $set: fields });
-// }
+      await container.db.accounts.updateOne(
+        { id_user },
+        { $inc: { balance: -update_amount } },
+        { session }
+      );
+
+      console.info(`🔧 Adding amount ${update_amount} to pocket ${id}`);
+
+      await container.db.pockets.updatePocketById(
+        id,
+        {
+          $inc: { balance: update_amount },
+        },
+        { session }
+      );
+    });
+
+    session.endSession();
+
+    return;
+  }
+
+  return container.db.pockets.updatePocketById(id, { $set: fields });
+}
 
 export async function createPocket(
   fields: Omit<Pocket, "_id">
