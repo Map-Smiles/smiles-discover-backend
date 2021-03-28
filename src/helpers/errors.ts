@@ -28,6 +28,8 @@ const messages = {
   spotNotFound: (id: string) => `Could not find spot with id ${id}`,
   userNotFound: (id: string) => `Could not find user with id ${id}`,
   accountNotFound: (id: string) => `Could not find account with id ${id}`,
+  insufficientFunds: (amount: number) =>
+    `The account does not have sufficient funds to withdraw the amount of ${amount}`,
 };
 
 export const apiErrors = {
@@ -47,4 +49,6 @@ export const apiErrors = {
     new httpError.NotFound(messages.userNotFound(id)),
   accountNotFound: (id: string): HttpError =>
     new httpError.NotFound(messages.accountNotFound(id)),
+  insufficientFunds: (amount: number): HttpError =>
+    new httpError.BadRequest(messages.insufficientFunds(amount)),
 };

@@ -32,6 +32,13 @@ export async function updatePocket(
   const { update_amount } = fields;
 
   if (update_amount) {
+    const { balance: account_balance } = await container.db.accounts.findOne({
+      id_user,
+    });
+
+    if (update_amount > account_balance) {
+      throw apiErrors.insufficientFunds(update_amount);
+    }
     const session = container.db.startSession();
 
     await session.withTransaction(async () => {
