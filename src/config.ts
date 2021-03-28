@@ -8,13 +8,13 @@ const DEFAULT_REGION = "us-east-1";
 
 const config = {
   dev: {
-    secretName: "smiles-discover-prod",
+    secretName: "DEV_SmilesDiscover",
   },
   stg: {
-    secretName: "smiles-discover-prod",
+    secretName: "PRD_SmilesDiscover",
   },
   prod: {
-    secretName: "smiles-discover-prod",
+    secretName: "PRD_SmilesDiscover",
   },
 };
 

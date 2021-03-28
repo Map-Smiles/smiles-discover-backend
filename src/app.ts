@@ -10,6 +10,4 @@ app.get("/health-check", (req, res) => {
   return res.json({ message: "Hello Smiles Discover!" });
 });
 
-console.log("🚀 Smiles Discover server is running!");
-
 export default app;

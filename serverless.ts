@@ -6,7 +6,7 @@ const serverlessConfiguration: AWS = {
   frameworkVersion: "2",
 
   custom: {
-    stage: "${opt:stage, 'local'}",
+    stage: "${opt:stage, 'dev'}",
 
     webpack: {
       webpackConfig: "./webpack.config.js",
@@ -15,11 +15,11 @@ const serverlessConfiguration: AWS = {
 
     secrets: {
       dev:
-        "arn:aws:secretsmanager:us-east-1:*:secret:smiles-discover-prod-VX9igL",
+        "arn:aws:secretsmanager:us-east-1:*:secret:DEV_SmilesDiscover-DkX6z4",
       stg:
-        "arn:aws:secretsmanager:us-east-1:*:secret:smiles-discover-prod-VX9igL",
+        "arn:aws:secretsmanager:us-east-1:*:secret:PRD_SmilesDiscover-abt84W",
       prod:
-        "arn:aws:secretsmanager:us-east-1:*:secret:smiles-discover-prod-VX9igL",
+        "arn:aws:secretsmanager:us-east-1:*:secret:PRD_SmilesDiscover-abt84W",
     },
   },
 
@@ -59,7 +59,7 @@ const serverlessConfiguration: AWS = {
       {
         Effect: "Allow",
         Action: "secretsmanager:GetSecretValue",
-        Resource: "${self:custom.secrets.${self.custom.stage}}",
+        Resource: "${self:custom.secrets.${self:custom.stage}}",
       },
     ],
   },
