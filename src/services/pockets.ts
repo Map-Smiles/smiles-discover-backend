@@ -6,9 +6,11 @@ interface IPocketUpdate extends Partial<Pocket> {
   update_amount?: number;
 }
 
-export async function listPockets(): Promise<Pocket[]> {
+export async function listPockets(id_user: string): Promise<Pocket[]> {
   console.info(`🔧 Getting list of Pockets`);
-  const pockets = await container.db.pockets.find();
+  const pockets = await container.db.pockets.find({
+    id_user,
+  });
 
   return pockets;
 }

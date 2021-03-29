@@ -13,7 +13,7 @@ import { createPocketSchema, updatePocketSchema } from "./validations";
 
 export const listPockets: ListPocketsHandler = async (req, res, next) => {
   try {
-    const pockets = await services.listPockets();
+    const pockets = await services.listPockets(req.user.id);
     return res.status(200).json(pockets);
   } catch (err) {
     next(err);
